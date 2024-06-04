@@ -33,8 +33,7 @@ public class UserService implements IUserService {
 
   @Override
   public UserResp getById(Long id) {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Unimplemented method 'getById'");
+    return UserHelper.userToResp(this.find(id));
   }
 
   @Override
@@ -66,4 +65,13 @@ public class UserService implements IUserService {
 
     return this.userRepository.findAll(pagination).map(user -> UserHelper.userToResp(user));
   }
+
+  
+  private User find(Long id){
+    return this.userRepository.findById(id)
+      .orElseThrow(() -> new BadRequestException(ErrorMessage.idNotFound("user")));
+  }
+
+
+
 }
