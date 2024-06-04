@@ -1,10 +1,7 @@
 package com.riwi.filtro.api.dto.request;
 
-import com.riwi.filtro.utils.enums.RoleUser;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,20 +14,19 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserReq {
 
-  @NotBlank(message = "Username required")
-  @Size(min=4,max = 50, message = "Username must between 4 and 50 characters")
-  private String userName;
+  @NotBlank(message = "name is required")
+  @Size(min=4,max = 100, message = "Name must be between 4 and 50 characters")
+  private String name;
 
-  @NotBlank(message = "password required")
+  @NotBlank(message = "password is required")
+  @Size(min=4,max = 255, message = "password must be between 4 and 255 characters")
   private String password;
 
-  @NotBlank(message = "email required")
+  @NotBlank(message = "email is required")
   @Email(message = "Not valid email")
   @Size(max = 100, message = "Email is too long")
   private String email;
 
-  private String fullName;
-  
-  @NotNull(message = "Role required")
-  private RoleUser roleUser;
+  private Boolean active;
+
 }
