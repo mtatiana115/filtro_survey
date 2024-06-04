@@ -12,8 +12,13 @@ import com.riwi.filtro.api.dto.request.QuestionReq;
 import com.riwi.filtro.api.dto.response.QuestionResp;
 import com.riwi.filtro.domain.entities.OptionsQuestion;
 import com.riwi.filtro.domain.entities.Question;
+import com.riwi.filtro.domain.entities.Survey;
+import com.riwi.filtro.domain.entities.User;
 import com.riwi.filtro.domain.repositories.QuestionRepository;
+import com.riwi.filtro.domain.repositories.SurveyRepository;
+import com.riwi.filtro.domain.repositories.UserRepository;
 import com.riwi.filtro.infraestructure.abstract_services.IQuestionService;
+import com.riwi.filtro.infraestructure.helpers.OptionsQuestionHelper;
 import com.riwi.filtro.infraestructure.helpers.QuestionHelper;
 import com.riwi.filtro.utils.enums.SortType;
 import com.riwi.filtro.utils.enums.TypeQuestion;
@@ -28,6 +33,8 @@ public class QuestionService implements IQuestionService{
 
   @Autowired
   private final QuestionRepository questionRepository;
+  @Autowired
+  private final SurveyRepository surveyRepository;
 
 
 
@@ -72,19 +79,15 @@ public class QuestionService implements IQuestionService{
 
   @Override
   public QuestionResp create(QuestionReq request) {
-    // Question question = new Question();
-    
-    // if (request.getType().equals(TypeQuestion.CLOSED)) {
+    Question question = QuestionHelper.reqToQuestion(request);
+    Survey survey = surveyRepository.findById(request.getSurveyId()).orElseThrow();
+    question.setSurvey(survey);
 
-    //   question = questionRepository.save(QuestionHelper.reqToQuestion(request));
+    List<OptionsQuestion> options = request.getOptions().stream().map(option -> OptionsQuestionHelper.reqToQuestion(option)).toList();
 
-    //   Question question2 = getById(question.getId());
+    question.setOptions(options);
 
-    
-    
-  
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'update'");
+    return QuestionHelper.questionToResp(questionRepository.save(question));
 
   }
 

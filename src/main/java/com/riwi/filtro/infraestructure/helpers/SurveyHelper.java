@@ -12,6 +12,8 @@ public class SurveyHelper {
                 .description(survey.getDescription())
                 .creationDate(survey.getCreationDate())
                 .active(survey.getActive())
+                .user(survey.getUser())
+                .questions(survey.getQuestions().stream().map(question -> QuestionHelper.questionToResp(question)).toList())
                 .build();
     }
 

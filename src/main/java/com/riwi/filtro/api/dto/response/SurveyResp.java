@@ -1,6 +1,9 @@
 package com.riwi.filtro.api.dto.response;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import com.riwi.filtro.domain.entities.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,5 +21,7 @@ public class SurveyResp {
     private String description;
     private LocalDate creationDate;
     private Boolean active;
+    private User user;
+    private List<QuestionResp> questions;
 
 }

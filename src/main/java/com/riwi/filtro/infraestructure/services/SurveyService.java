@@ -13,6 +13,7 @@ import com.riwi.filtro.api.dto.response.QuestionResp;
 import com.riwi.filtro.api.dto.response.SurveyResp;
 import com.riwi.filtro.api.dto.response.SurveyRespWithQuestions;
 import com.riwi.filtro.domain.entities.Survey;
+import com.riwi.filtro.domain.entities.User;
 import com.riwi.filtro.domain.repositories.QuestionRepository;
 import com.riwi.filtro.domain.repositories.SurveyRepository;
 import com.riwi.filtro.domain.repositories.UserRepository;
@@ -32,6 +33,7 @@ public class SurveyService implements ISurveyService{
   
   @Autowired
   private SurveyRepository surveyRepository;
+  
 
   // @Autowired
   // private QuestionRepository questionRepository;
@@ -45,8 +47,10 @@ public class SurveyService implements ISurveyService{
 
   @Override
   public SurveyResp create(SurveyReq request) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'create'");
+    Survey survey = SurveyHelper.reqToSurvey(request);
+    User user = userRepository.findById(request.getUserId()).orElseThrow();
+    survey.setUser(user);
+    return SurveyHelper.surveyToResp(surveyRepository.save(survey));
   }
 
   @Override
