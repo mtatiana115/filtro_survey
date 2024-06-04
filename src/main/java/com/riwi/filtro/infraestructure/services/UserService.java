@@ -54,21 +54,17 @@ public class UserService implements IUserService {
   private UserResp entityToResp(User entity){
     return UserResp.builder()
           .id(entity.getId())
-          .username(entity.getUsername())
+          .name(entity.getName())
           .email(entity.getEmail())
-          .fullName(entity.getFullName())
-          .roleUser(entity.getRoleUser())
           .build();
   }
 
   private User requestToEntity(UserReq request){
     //sintaxis con el builder
     return User.builder()
-    .username(request.getUserName())
+    .name(request.getName())
     .password(request.getPassword())
     .email(request.getEmail())
-    .fullName(request.getFullName())
-    .roleUser(request.getRoleUser())
     .build();
   }
 

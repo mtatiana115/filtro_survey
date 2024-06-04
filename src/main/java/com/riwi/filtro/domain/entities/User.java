@@ -1,5 +1,6 @@
 package com.riwi.filtro.domain.entities;
 
+
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -21,7 +22,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "user")
+@Entity(name = "users")
 public class User {
 
   @Id
@@ -43,10 +44,11 @@ public class User {
   //Relaciones
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
-  @OneToMany(mappedBy = "creator",
+  @OneToMany(mappedBy = "user",
   fetch = FetchType.LAZY,
   cascade = CascadeType.ALL,
   orphanRemoval = false
   )
   private List<Survey> surveys;
 }
+

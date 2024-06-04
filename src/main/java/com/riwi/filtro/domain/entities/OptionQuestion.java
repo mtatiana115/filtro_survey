@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "opyionQuestion")
+@Entity(name = "optionQuestion")
 public class OptionQuestion {
   
   @Id

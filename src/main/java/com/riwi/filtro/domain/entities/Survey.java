@@ -50,10 +50,10 @@ public class Survey {
   //relaciones creator_id
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(
-    name = "creator_id",
+    name = "user_id",
     referencedColumnName = "id"
   )
-  private User creator;
+  private User user;
 
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
