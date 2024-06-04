@@ -60,6 +60,6 @@ public class Question {
   cascade = CascadeType.ALL,
   orphanRemoval = false
   )
-  private List<OptionQuestion> optionQuestions;
+  private List<OptionsQuestion> options;
 
 }

@@ -18,8 +18,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "optionQuestion")
-public class OptionQuestion {
+@Entity(name = "optionsQuestion")
+public class OptionsQuestion {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
