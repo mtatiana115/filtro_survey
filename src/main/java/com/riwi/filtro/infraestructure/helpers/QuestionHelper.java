@@ -9,7 +9,7 @@ import com.riwi.filtro.utils.enums.TypeQuestion;
 
 public class QuestionHelper {
 
-  public static QuestionResp questionToResp(Question question) {
+public static QuestionResp questionToResp(Question question) {
         if (question.getType().equals(TypeQuestion.OPEN)) {
             return QuestionResp.builder()
                 .id(question.getId())

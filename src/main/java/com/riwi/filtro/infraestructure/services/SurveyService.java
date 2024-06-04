@@ -15,7 +15,10 @@ import com.riwi.filtro.api.dto.response.SurveyRespWithQuestions;
 import com.riwi.filtro.domain.entities.Survey;
 import com.riwi.filtro.domain.repositories.QuestionRepository;
 import com.riwi.filtro.domain.repositories.SurveyRepository;
+import com.riwi.filtro.domain.repositories.UserRepository;
 import com.riwi.filtro.infraestructure.abstract_services.ISurveyService;
+import com.riwi.filtro.infraestructure.helpers.EmailHelper;
+import com.riwi.filtro.infraestructure.helpers.QuestionHelper;
 import com.riwi.filtro.infraestructure.helpers.SurveyHelper;
 import com.riwi.filtro.utils.enums.SortType;
 import com.riwi.filtro.utils.exception.BadRequestException;
@@ -30,8 +33,14 @@ public class SurveyService implements ISurveyService{
   @Autowired
   private SurveyRepository surveyRepository;
 
+  // @Autowired
+  // private QuestionRepository questionRepository;
+
   @Autowired
-  private QuestionRepository questionRepository;
+  private final EmailHelper emailHelper;
+
+    @Autowired
+    private UserRepository userRepository;
 
 
   @Override
@@ -42,8 +51,7 @@ public class SurveyService implements ISurveyService{
 
   @Override
   public SurveyResp getById(Long id) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getById'");
+    return SurveyHelper.surveyToResp(this.find(id));
   }
 
   @Override
@@ -83,8 +91,16 @@ public class SurveyService implements ISurveyService{
 
   public SurveyRespWithQuestions getSurveyByIdWithQuestion(long id) {
     
-    List<QuestionResp> questions = questionRepository.findById(id).stream()
-          .map(question -> this.QuestionRespquestion()).
+      Survey survey = find(id);
+        return SurveyRespWithQuestions.builder()
+                .id(survey.getId())
+                .description(survey.getDescription())
+                .creationDate(survey.getCreationDate())
+                .title(survey.getTitle())
+                .active(survey.getActive())
+                .questions(survey.getQuestions().stream().map(question -> QuestionHelper.questionToResp(question))
+                        .toList())
+                .build();
   }
 
 }
