@@ -5,4 +5,5 @@ import com.riwi.filtro.api.dto.response.UserResp;
 
 public interface IUserService extends CrudService <UserReq, UserResp, Long> {
 
+  public final String FIELD_BY_SORT = "name";
 }

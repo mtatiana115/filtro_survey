@@ -34,10 +34,10 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/user")
 public class UserController {
 
-  @Autowired
-  private final IUserService iUserService;
+    @Autowired
+    private final IUserService iUserService;
 
-  @Operation(summary = "Get the entire users list in a paginated manner")
+    @Operation(summary = "Get the entire users list in a paginated manner")
     @GetMapping
     public ResponseEntity<Page<UserResp>> getAll(
             @RequestParam(defaultValue = "1") int page,
